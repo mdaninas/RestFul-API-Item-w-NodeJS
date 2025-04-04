@@ -3,7 +3,6 @@ CREATE TABLE `users` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `password` TEXT NOT NULL,
-    `token` VARCHAR(255) NULL,
 
     UNIQUE INDEX `users_username_key`(`username`),
     PRIMARY KEY (`id`)

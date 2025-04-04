@@ -8,6 +8,7 @@ import { validate } from "../validation/validation.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
+import { logger } from "../application/logging.js";
 dotenv.config();
 
 const register = async (request) => {
@@ -18,17 +19,17 @@ const register = async (request) => {
     },
   });
   if (alreadyRegister) {
-    console.info("INI JALAN");
     throw new ResponseError(402, "user sudah ada");
   }
   user.password = await bcrypt.hash(user.password, 10);
-  return prismaClient.user.create({
+  const hasil = await prismaClient.user.create({
     data: user,
     select: {
+      id: true,
       username: true,
-      password: true,
     },
   });
+  return hasil;
 };
 
 const login = async (request) => {
@@ -43,21 +44,17 @@ const login = async (request) => {
   if (!isPasswordValid) {
     throw new ResponseError(400, "Password Salah");
   }
-  if (user2.token) {
-    throw new ResponseError(400, "Token Tidak Kosong");
-  }
-  
-  const tokenjwt = jwt.sign({ username: user.username }, process.env.SUPER_KEY);
-
-  return await prismaClient.user.update({
-    where: { username: user.username },
-    data: { token: tokenjwt },
-    select: {
-      username: true,
-      token: true,
-    },
-  });
+  const tokenjwt = jwt.sign(
+    { id: user2.id, username: user.username },
+    process.env.SUPER_KEY
+  );
+  return {
+    id: user2.id,
+    name: user2.username,
+    token: tokenjwt,
+  };
 };
+
 export default {
   register,
   login,

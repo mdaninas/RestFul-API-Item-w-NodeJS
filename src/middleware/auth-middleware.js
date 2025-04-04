@@ -1,24 +1,47 @@
-import {prismaClient} from "../application/database.js";
+import dotenv from "dotenv";
+dotenv.config();
+import jwt from "jsonwebtoken";
+import { prismaClient } from "../application/database.js";
+import { logger } from "../application/logging.js";
+import { ResponseError } from "../error/response-error.js";
 
-export const authMiddleware = async (req, res, next) => {
-    const token = req.get('Authorization');
+const authMiddleware = async (req, res, next) => {
+  try {
+    const token = req.get("Authorization");
     if (!token) {
-        res.status(401).json({
-            errors: "Unauthorized"
-        }).end();
-    } else {
-        const user = await prismaClient.user.findFirst({
-            where: {
-                token: token
-            }
-        });
-        if (!user) {
-            res.status(401).json({
-                errors: "Unauthorized"
-            }).end();
-        } else {
-            req.user = user;
-            next();
-        }
+      return res
+        .status(400)
+        .json({
+          message: "Unauthorized woi",
+        })
+        .end();
     }
-}
+    const decoded = jwt.verify(token, process.env.SUPER_KEY);
+
+    req.user = {
+      id: decoded.id,
+      username: decoded.username,
+    };
+    const dbuser = await prismaClient.user.findFirst({
+      where: {
+        username: decoded.username,
+      },
+    });
+
+    // Cek jika user tidak ditemukan atau data username tidak cocok
+    if (!dbuser || dbuser.username !== decoded.username) {
+      return res
+        .status(401)
+        .json({ message: "Tidak ada user dengan token tersebut" })
+        .end();
+    }
+
+    // Melanjutkan ke route handler berikutnya jika verifikasi sukses
+    next();
+  } catch (error) {
+    error.status = 400
+    next(new ResponseError(error.status, error.message));
+  }
+};
+
+export { authMiddleware };
