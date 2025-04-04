@@ -27,16 +27,12 @@ const authMiddleware = async (req, res, next) => {
         username: decoded.username,
       },
     });
-
-    // Cek jika user tidak ditemukan atau data username tidak cocok
     if (!dbuser || dbuser.username !== decoded.username) {
       return res
         .status(401)
         .json({ message: "Tidak ada user dengan token tersebut" })
         .end();
     }
-
-    // Melanjutkan ke route handler berikutnya jika verifikasi sukses
     next();
   } catch (error) {
     error.status = 400

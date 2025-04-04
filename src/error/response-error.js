@@ -4,6 +4,6 @@ export class ResponseError extends Error {
     this.name = "ResponseError";
     this.statusCode = statusCode;
 
-    Error.captureStackTrace(this, this.constructor); // Membersihkan stack trace
+    Error.captureStackTrace(this, this.constructor);
   }
 }

@@ -28,11 +28,38 @@ const updateitem = async (id, req) => {
       data: result,
     });
   } catch (e) {
-    throw new ResponseError(402, "Gagal Update nih");
+    throw new ResponseError(402, "Gagal Update data");
+  }
+};
+
+const detailitem = async (id) => {
+    const item = await prismaClient.item.findFirst({
+      where: {
+        id: Number(id),
+      }
+    });
+    if (!item) {
+      throw new ResponseError(402,"Detail item tidak ada");
+      
+    }
+    return item
+
+};
+const deleteitem = async (id) => {
+  try {
+    return await prismaClient.item.delete({
+      where: {
+        id: Number(id),
+      }
+    });
+  } catch (e) {
+    throw new ResponseError(402, "Data yang mau dihapus tidak ada");
   }
 };
 
 export default {
   additem,
   updateitem,
+  detailitem,
+  deleteitem
 };
