@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
 import { prismaClient } from "../application/database.js";
-import { logger } from "../application/logging.js";
+
 import { ResponseError } from "../error/response-error.js";
 
 const authMiddleware = async (req, res, next) => {

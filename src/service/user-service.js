@@ -8,7 +8,6 @@ import { validate } from "../validation/validation.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import { logger } from "../application/logging.js";
 dotenv.config();
 
 const register = async (request) => {

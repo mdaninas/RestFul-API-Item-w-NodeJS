@@ -60,3 +60,14 @@
 {"level":"info","message":{"duration":0,"params":"[4]","query":"SELECT `keren`.`items`.`id` FROM `keren`.`items` WHERE (`keren`.`items`.`id` = ? AND 1=1)","target":"quaint::connector::metrics","timestamp":"2025-04-04T19:30:52.819Z"}}
 {"level":"info","message":{"duration":0,"params":"[4,4]","query":"DELETE FROM `keren`.`items` WHERE (`keren`.`items`.`id` IN (?) AND (`keren`.`items`.`id` = ? AND 1=1))","target":"quaint::connector::metrics","timestamp":"2025-04-04T19:30:52.820Z"}}
 {"level":"info","message":{"duration":3,"params":"[]","query":"COMMIT","target":"quaint::connector::metrics","timestamp":"2025-04-04T19:30:52.823Z"}}
+{"level":"info","message":"App start"}
+{"level":"info","message":"Starting a mysql pool with 29 connections.","target":"quaint::pooled","timestamp":"2025-04-08T23:44:48.242Z"}
+{"level":"info","message":{"duration":39,"params":"[\"Muhammad Dani\",1,0]","query":"SELECT `keren`.`users`.`id`, `keren`.`users`.`username`, `keren`.`users`.`password` FROM `keren`.`users` WHERE `keren`.`users`.`username` = ? LIMIT ? OFFSET ?","target":"quaint::connector::metrics","timestamp":"2025-04-08T23:44:48.376Z"}}
+{"level":"info","message":"App start"}
+{"level":"info","message":"Starting a mysql pool with 29 connections.","target":"quaint::pooled","timestamp":"2025-04-08T23:54:41.975Z"}
+{"level":"info","message":{"duration":0,"params":"[\"Muhammad Dani\",1,0]","query":"SELECT `keren`.`users`.`id`, `keren`.`users`.`username`, `keren`.`users`.`password` FROM `keren`.`users` WHERE `keren`.`users`.`username` = ? LIMIT ? OFFSET ?","target":"quaint::connector::metrics","timestamp":"2025-04-08T23:54:41.999Z"}}
+{"level":"info","message":{"duration":0,"params":"[\"Muhammad Dani\",1,0]","query":"SELECT `keren`.`users`.`id`, `keren`.`users`.`username`, `keren`.`users`.`password` FROM `keren`.`users` WHERE `keren`.`users`.`username` = ? LIMIT ? OFFSET ?","target":"quaint::connector::metrics","timestamp":"2025-04-08T23:54:48.722Z"}}
+{"level":"info","message":"App start"}
+{"level":"info","message":"App start"}
+{"level":"info","message":"App start"}
+{"level":"info","message":"App start"}
